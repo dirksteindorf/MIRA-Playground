@@ -1,0 +1,82 @@
+<root>
+    <!-- make the framework available for remote access -->
+    <communication>
+		<Port>1234</Port>
+	</communication>
+    
+    <!-- enable control via gamepad -->
+    <unit id="Gamepad" class="tutorials::GamepadController" />
+    
+    <!-- include own RPC Calls (not really necessary but nice to play around with) -->
+    <unit id="RPC" class="tutorials::RPCTests" />
+
+    <!--<unit id="kukaController" class="langeNacht::kukaRemoteController" />-->
+
+    <!-- turns Robohead towards an obstacle in the visual range of the laser -->
+    <!--<unit id="LaserScan" class="Tutorials::LaserData" /> -->
+    
+    <!-- publish a picture as a map -->
+    <!--<unit id="MapPublisher" class="Tutorials::MapPublisher" />-->
+
+    <!-- react to messages from remote ROS instance -->
+    <!--<unit id="remoteOrders" class="Tutorials::remoteOrders" />-->
+    
+    <!-- Leg Detector -->
+    <!--<unit id="LegDetector" class="mira::tracking::LegDetector" />-->
+    
+    <!-- Head Gestures -->
+	<!--<unit id="Gestures" class="mira::behaviors::HeadGestures" />-->
+
+    <!-- TODO: check if these configs work well together -->
+    <!-- include the packages necessary for mapping -->
+    <!--<include file="${findpkg SCITOSConfigs}/etc/SCITOS-mapping.xml"/>-->
+    
+    <!-- include the packages necessary for navigation -->
+   <!-- <include file="${findpkg SCITOSConfigs}/etc/SCITOS-Pilot.xml"/>-->
+    
+    <!-- package for docking to charging station -->
+   <!-- <include file="${findpkg SCITOSConfigs}/etc/SCITOS-application.xml"/>-->
+    
+	<workspace file="${findpkg SCITOSConfigs}/etc/mapping.workspace" />
+
+	<link child="MapFrame" parent="/GlobalFrame">
+		<X>0</X>
+		<Y>0</Y>
+		<Phi>0</Phi>
+	</link>
+
+	<include file="${findpkg SCITOS}/etc/SCITOSDriver.xml"/>
+
+	<namespace name="robot">
+		<if_not frontLaser="none">
+			<namespace name="frontLaser">
+				<include file="${findpkg RangeFinder}/etc/RangeFinder-${frontLaser}.xml"/>
+				<parameter name="RangeFinder">
+					<Device>
+						<Device>${frontLaserDevice}</Device>
+					</Device>
+				</parameter>
+				<parameter name="RangeFinder.RangeFinder">
+					<if_exists file="${frontLaserIgnoreIntervals}">
+						<include file="${frontLaserIgnoreIntervals}"/>
+					</if_exists>
+				</parameter>
+			</namespace>
+		</if_not>
+		<if_not rearLaser="none">
+			<namespace name="rearLaser">
+				<include file="${findpkg RangeFinder}/etc/RangeFinder-${rearLaser}.xml"/>
+				<parameter name="RangeFinder">
+					<Device>
+						<Device>${rearLaserDevice}</Device>
+					</Device>
+				</parameter>
+				<parameter name="RangeFinder.RangeFinder">
+					<if_exists file="${rearLaserIgnoreIntervals}">
+						<include file="${rearLaserIgnoreIntervals}"/>
+					</if_exists>
+				</parameter>
+			</namespace>
+		</if_not>
+	</namespace>
+</root>

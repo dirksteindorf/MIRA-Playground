@@ -1,0 +1,5 @@
+<root>
+	<include file="${findpkg SCITOS}/etc/SCITOSDriver.xml"/>
+
+	<unit id="RPC" class="tutorials::RPCExample"/>	
+</root>

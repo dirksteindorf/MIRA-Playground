@@ -1,0 +1,11 @@
+<root>
+	<communication>
+		<Port>1234</Port>
+	</communication>
+	
+	<include file="${findpkg SCITOS}/etc/SCITOSDriver.xml"/>
+<!--	<include file="${findpkg SCITOSConfigs}/etc/SCITOS-mapping.xml"/>
+-->
+	<unit id="RPC" class="tutorials::RPCTests"/> 
+	<unit id="Gamepad" class="tutorials::GamepadController"/>
+</root>

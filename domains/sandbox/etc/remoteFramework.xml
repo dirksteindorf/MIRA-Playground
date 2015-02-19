@@ -1,0 +1,8 @@
+<root>
+	<communication>
+		<Port>1236</Port>
+		<KnownFrameworks>
+			<item>10.2.1.75:1234</item>
+		</KnownFrameworks>
+	</communication>
+</root>
