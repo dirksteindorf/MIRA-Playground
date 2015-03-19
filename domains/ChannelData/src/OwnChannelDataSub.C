@@ -45,6 +45,7 @@
  */
 
 #include <fw/MicroUnit.h>
+#include "OwnChannelData.h"
 
 using namespace mira;
 
@@ -67,10 +68,6 @@ public:
 	void reflect(Reflector& r)
 	{
 		MicroUnit::reflect(r);
-
-		// TODO: reflect all parameters (members and properties) that specify the persistent state of the unit
-		//r.property("Param1", mParam1, "First parameter of this unit with default value", 123.4f);
-		//r.member("Param2", mParam2, setter(&UnitName::setParam2,this), "Second parameter with setter");
 	}
 
 protected:
@@ -79,7 +76,7 @@ protected:
 
 private:
 
-	// void onPoseChanged(ChannelRead<Pose2> pose);
+	void onNewData(ChannelRead<OwnChannelData> data);
 
 private:
 
@@ -95,9 +92,13 @@ OwnChannelDataSub::OwnChannelDataSub()
 
 void OwnChannelDataSub::initialize()
 {
-	// TODO: subscribe and publish all required channels
-	//subscribe<Pose2>("Pose", &UnitName::onPoseChanged);
-	//mChannel = publish<Img<>>("Image");
+	subscribe<OwnChannelData>("OwnData", &OwnChannelDataSub::onNewData);
+}
+
+void OwnChannelDataSub::onNewData(ChannelRead<OwnChannelData> data)
+{
+	std::cout 	<< "id = " <<data->value().id 
+				<< ", value = " << data->value().value << std::endl;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

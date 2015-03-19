@@ -22,6 +22,7 @@ MIRA_ADD_LIBRARY(OwnChannelDataPub
 	#PACKAGE $PACKAGE$
 	SOURCE
 		src/OwnChannelDataPub.C
+		src/OwnChannelData.cpp
 
 	LINK_LIBS
 		MIRABase
@@ -35,6 +36,7 @@ MIRA_ADD_LIBRARY(OwnChannelDataSub
 	#PACKAGE $PACKAGE$
 	SOURCE
 		src/OwnChannelDataSub.C
+		src/OwnChannelData.cpp
 
 	LINK_LIBS
 		MIRABase

@@ -1,0 +1,6 @@
+<root>
+
+    <unit id="OwnChannelDataPub" class="channeldata::OwnChannelDataPub" />
+    <unit id="OwnChannelDataSub" class="channeldata::OwnChannelDataSub" />
+
+</root>

@@ -45,6 +45,7 @@
  */
 
 #include <fw/Unit.h>
+#include "OwnChannelData.h"
 
 using namespace mira;
 
@@ -67,10 +68,6 @@ public:
 	void reflect(Reflector& r)
 	{
 		Unit::reflect(r);
-
-		// TODO: reflect all parameters (members and properties) that specify the persistent state of the unit
-		//r.property("Param1", mParam1, "First parameter of this unit with default value", 123.4f);
-		//r.member("Param2", mParam2, setter(&UnitName::setParam2,this), "Second parameter with setter");
 	}
 
 protected:
@@ -85,26 +82,26 @@ private:
 
 private:
 
-	//Channel<Img<>> mChannel;
+	Channel<OwnChannelData> myChannel;
+	OwnChannelData data;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
 
 OwnChannelDataPub::OwnChannelDataPub() : Unit(Duration::milliseconds(100))
 {
-	// TODO: further initialization of members, etc.
+	data = OwnChannelData();
 }
 
 void OwnChannelDataPub::initialize()
 {
-	// TODO: subscribe and publish all required channels
-	//subscribe<Pose2>("Pose", &UnitName::onPoseChanged);
-	//mChannel = publish<Img<>>("Image");
+	myChannel = publish<OwnChannelData>("OwnData");
 }
 
 void OwnChannelDataPub::process(const Timer& timer)
 {
-	// TODO: this method is called periodically with the specified cycle time, so you can perform your computation here.
+	myChannel.post(data);
+	data.value++;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
