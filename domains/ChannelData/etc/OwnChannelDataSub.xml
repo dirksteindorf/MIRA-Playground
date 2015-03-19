@@ -1,0 +1,7 @@
+<root>
+
+	<unit id="OwnChannelDataSub" class="channeldata::OwnChannelDataSub">
+		<!-- add your default parameters here-->
+	</unit>
+
+</root>

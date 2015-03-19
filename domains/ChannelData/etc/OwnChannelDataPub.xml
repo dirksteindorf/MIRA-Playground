@@ -1,0 +1,7 @@
+<root>
+
+	<unit id="OwnChannelDataPub" class="channeldata::OwnChannelDataPub">
+		<!-- add your default parameters here-->
+	</unit>
+
+</root>
