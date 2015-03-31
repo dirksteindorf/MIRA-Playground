@@ -1,0 +1,46 @@
+<root>
+
+    <communication>
+        <Port>1234</Port>
+    </communication>
+
+    <link child="MapFrame" parent="/GlobalFrame">
+        <X>0</X>
+        <Y>0</Y>
+        <Phi>0</Phi>
+    </link>
+
+    <include file="${findpkg SCITOS}/etc/SCITOSDriver.xml"/>
+    
+    <!-- publish pictures as maps -->
+    <unit id="sensorPublisher" class="mapmerging::sensorPublisher" />
+
+    <!-- take published maps and merge them into one global map -->
+    <unit id="GridMapMerger" class="mira::mapping::OccupancyGridMerger">
+        <!--The interval of the watchdog-->
+        <HeartbeatInterval>1000</HeartbeatInterval>
+
+        <!--The interval for trying to recover-->
+        <RecoverInterval>1000</RecoverInterval>
+
+        <!--The cycle time of our process-->
+        <CycleTime>100</CycleTime>
+
+        <!--The maximum time about that we can exceed the cycle time before 
+        issuing a warning-->
+        <CycleTimeTolerance>100</CycleTimeTolerance>
+
+        <!--The vector of required map names.-->
+        <RequiredMaps>
+            <item>sensorMap</item>
+        </RequiredMaps>
+
+        <!--The vector of optional map names.-->
+        <OptionalMaps>
+        </OptionalMaps>
+
+        <!--Maximum age of required and optional maps-->
+        <MaxMapAge>1000</MaxMapAge>
+    </unit>
+
+</root>
