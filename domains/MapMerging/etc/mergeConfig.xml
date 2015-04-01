@@ -10,11 +10,6 @@
         <Phi>0</Phi>
     </link>
 
-    <include file="${findpkg SCITOS}/etc/SCITOSDriver.xml"/>
-    
-    <!-- publish pictures as maps -->
-    <unit id="sensorPublisher" class="mapmerging::sensorPublisher" />
-
     <!-- take published maps and merge them into one global map -->
     <unit id="GridMapMerger" class="mira::mapping::OccupancyGridMerger">
         <!--The interval of the watchdog-->
@@ -32,11 +27,12 @@
 
         <!--The vector of required map names.-->
         <RequiredMaps>
-            <item>sensorMap</item>
+            <item>staticMap</item>
         </RequiredMaps>
 
         <!--The vector of optional map names.-->
         <OptionalMaps>
+            <item>sensorMap</item>
         </OptionalMaps>
 
         <!--Maximum age of required and optional maps-->
