@@ -35,8 +35,8 @@
             <item>sensorMap</item>
         </OptionalMaps>
 
-        <!--Maximum age of required and optional maps-->
-        <MaxMapAge>1000</MaxMapAge>
+        <!--Maximum age of required and optional maps in ms-->
+        <MaxMapAge>10000</MaxMapAge>
     </unit>
 
 </root>

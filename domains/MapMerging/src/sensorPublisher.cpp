@@ -57,8 +57,8 @@ int main(int argc, char** argv)
     mira::Path filenameClosed("/home/dirk/MIRA/maps/map-closed.png");
     mira::Path filenameStatic("/home/dirk/MIRA/maps/map-static.png");
 
-    mira::Point2i staticOffset(0, 0);
-    mira::Point2i offset(206, 126);
+    mira::Point2i staticOffset(172, 274);
+    mira::Point2i offset(206, 283);
     float cellsize = 0.05f;
 
     openMap = mira::maps::loadOccupancyGridFromFile(filenameOpen, cellsize, offset);
