@@ -24,3 +24,15 @@ MIRA_ADD_BINARY(sensorPublisher
     LINK_LIBS
         MIRAFramework
 )
+###############################################################################
+
+MIRA_ADD_LIBRARY(staticMapPublisher
+	SHARED
+	#PACKAGE $PACKAGE$
+	SOURCE
+		src/staticMapPublisher.C
+
+	LINK_LIBS
+		MIRABase
+		MIRAFramework
+)

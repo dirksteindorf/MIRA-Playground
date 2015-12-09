@@ -10,6 +10,7 @@
         <Phi>0</Phi>
     </link>
 
+	  <unit id="staticMapPublisher" class="MapMerging::staticMapPublisher" />
     <!-- take published maps and merge them into one global map -->
     <unit id="GridMapMerger" class="mira::mapping::OccupancyGridMerger">
         <!--The interval of the watchdog-->
