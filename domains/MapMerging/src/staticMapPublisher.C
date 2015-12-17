@@ -100,7 +100,7 @@ namespace MapMerging {
   staticMapPublisher::staticMapPublisher() : Unit(Duration::milliseconds(100))
   {
     // TODO: further initialization of members, etc.
-    filenameStatic = mira::Path("/home/dirk/MIRA/maps/map-static.png");
+    filenameStatic = mira::Path("/localhome/demo/map/langeNacht/map-static.png");
     offset = mira::Point2i(0,0);
     cellsize = 0.05f;
     staticMap = mira::maps::loadOccupancyGridFromFile(filenameStatic, cellsize, offset);
