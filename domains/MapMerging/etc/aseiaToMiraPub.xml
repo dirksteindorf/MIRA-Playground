@@ -1,0 +1,7 @@
+<root>
+
+	<unit id="aseiaToMiraPub" class="MapMerging::aseiaToMiraPub">
+		<!-- add your default parameters here-->
+	</unit>
+
+</root>

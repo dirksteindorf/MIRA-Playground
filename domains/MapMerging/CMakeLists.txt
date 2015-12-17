@@ -36,3 +36,16 @@ MIRA_ADD_LIBRARY(staticMapPublisher
 		MIRABase
 		MIRAFramework
 )
+
+###############################################################################
+
+MIRA_ADD_LIBRARY(aseiaToMiraPub
+	SHARED
+	#PACKAGE $PACKAGE$
+	SOURCE
+		src/aseiaToMiraPub.C
+
+	LINK_LIBS
+		MIRABase
+		MIRAFramework
+)

@@ -2,8 +2,15 @@
 	<communication>
 		<Port>1234</Port>
 	</communication>
-
+<!--
+    <link child="MapFrame" parent="/GobalFrame">
+        <X>0</X>
+        <Y>0</Y>
+        <Phi>0</Phi>
+    </link>
+-->
   <!--<unit id="staticMapPublisher" class="MapMerging::staticMapPublisher" />-->
+  <unit id="aseiaToMiraPub" class="MapMerging::aseiaToMiraPub" />
 
 	<!-- set to false if you do not load maps on the robot (e.g. when maps are published by a server) -->
 	<var useMap="true"/>
@@ -97,6 +104,7 @@
 		</else>
 	</namespace>
 
+    <using name="/aseiaMap" as="/navigation/aseiaMap" />
 	<namespace name="navigation">
 		<namespace name="laser">
 			<using name="../../robot/OdometryFrame" as="MapFrame"/>
@@ -222,7 +230,7 @@
 			<!--The vector of required map names.-->
 			<RequiredMaps>
 			  <item>laser/Map</item>
-              <item>/sensorMap</item>
+              <item>/aseiaMap</item>
         <!--<item>staticMap</item>-->
 			</RequiredMaps>
 			<!--The vector of optional map names.-->

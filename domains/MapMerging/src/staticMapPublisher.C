@@ -46,6 +46,7 @@
 
 #include <iostream>
 #include <fw/Unit.h>
+#include <fw/ChannelReadWrite.h>
 #include <maps/OccupancyGrid.h>
 
 using namespace mira;
@@ -120,6 +121,7 @@ namespace MapMerging {
 
     writeStaticMap->timestamp = mira::Time::now();
     writeStaticMap->frameID = resolveName("GlobalFrame"); 
+    cout << writeStaticMap->frameID << endl;
     writeStaticMap->value() = staticMap;
   }
 
