@@ -3,7 +3,7 @@
 		<Port>1234</Port>
 	</communication>
 
-  <unit id="staticMapPublisher" class="MapMerging::staticMapPublisher" />
+  <!--<unit id="staticMapPublisher" class="MapMerging::staticMapPublisher" />-->
 
 	<!-- set to false if you do not load maps on the robot (e.g. when maps are published by a server) -->
 	<var useMap="true"/>
@@ -108,7 +108,7 @@
 				<!--The interval for trying to recover-->
 				<RecoverInterval>1000</RecoverInterval>
 				<!--The cell size of the created occupancy grid in m (default=0.05)-->
-				<CellSize>0.02</CellSize>
+				<CellSize>0.05</CellSize>
 				<!--The minimum certainty a range scan must have to be included into the map-->
 				<MinCertainty>5</MinCertainty>
 				<!--Scans are cropped at this maximum range-->
@@ -157,7 +157,7 @@
 					<!--The interval for trying to recover-->
 					<RecoverInterval>1000</RecoverInterval>
 					<!--The cell size of the created occupancy grid in m (default=0.05)-->
-					<CellSize>0.02</CellSize>
+					<CellSize>0.05</CellSize>
 					<!--The minimum certainty a range scan must have to be included into the map-->
 					<MinCertainty>5</MinCertainty>
 					<!--Scans are cropped at this maximum range-->
@@ -222,12 +222,12 @@
 			<!--The vector of required map names.-->
 			<RequiredMaps>
 			  <item>laser/Map</item>
-        <item>staticMap</item>
+              <item>/sensorMap</item>
+        <!--<item>staticMap</item>-->
 			</RequiredMaps>
 			<!--The vector of optional map names.-->
 			<OptionalMaps>
-			  <item>sonar/Map</item>
-        <item>sensorMap</item>
+			  <!--<item>sonar/Map</item>-->
 			</OptionalMaps>
 			<!--Maximum age of required and optional maps-->
 			<MaxMapAge>1000</MaxMapAge>
