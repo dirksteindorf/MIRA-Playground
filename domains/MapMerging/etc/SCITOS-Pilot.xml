@@ -2,36 +2,16 @@
 	<communication>
 		<Port>1234</Port>
 	</communication>
-<!--
-    <link child="MapFrame" parent="/GobalFrame">
-        <X>0</X>
-        <Y>0</Y>
-        <Phi>0</Phi>
-    </link>
--->
-  <!--<unit id="staticMapPublisher" class="MapMerging::staticMapPublisher" />-->
+  
+
+  <unit id="staticMapPublisher" class="MapMerging::staticMapPublisher" />
   <unit id="aseiaToMiraPub" class="MapMerging::aseiaToMiraPub" />
 
 	<!-- set to false if you do not load maps on the robot (e.g. when maps are published by a server) -->
-	<var useMap="true"/>
+	<var useMap="false"/>
 	<var topoMap="none"/>
 	<var pilotConfig="${findpkg Pilot}/etc/Pilot.xml"/>
 
-	<if useMap="true">
-		<var mapConfigFile="${findpkg SCITOSConfigs}/etc/DefaultMapConfig.xml"/>
-		<include file="${mapConfigFile}"/>
-		<var costMapperConfigFile="${findpkg SCITOSConfigs}/etc/DefaultCostMapperConfig.xml"/>
-		<include file="${costMapperConfigFile}"/>
-		<if_not topoMap="none">
-			<namespace name="maps">
-				<!-- the TopoMapManager is necessary for loading the topological map and for loading the maps and for switching between the maps-->
-				<using name="../robot/RobotFrame" as="RobotFrame" />
-				<unit id="TopoMapManager" class="viros::topomap::TopoMapManager">
-					<File>${topoMap}</File>
-				</unit>
-			</namespace>
-		</if_not>
-	</if>
 
 	<!-- Used localization [AMCL, Poseidon, PoseidonLaserTemplate] -->
 	<if_exists package="Poseidon">
@@ -43,6 +23,8 @@
 		</if_exists>
 	</else>
 
+
+<!--  robot config -->
 	<include file="${findpkg SCITOS}/etc/SCITOSDriver.xml"/>
 
 	<namespace name="robot">
@@ -74,6 +56,14 @@
 		</if_not>
 	</namespace>
 
+
+<!-- localization setup -->
+    <link child="MapFrame" parent="/GobalFrame">
+        <X>0</X>
+        <Y>0</Y>
+        <Phi>0</Phi>
+    </link>
+
 	<assert_exists var="localization">You need to specify a localization service by either installing package AMCL, Poseidon or specifying the variable 'localization'</assert_exists>
 	<include file="${findpkg SCITOSConfigs}/etc/${localization}Localization.xml"/>
 	
@@ -104,7 +94,9 @@
 		</else>
 	</namespace>
 
-    <using name="/aseiaMap" as="/navigation/aseiaMap" />
+
+<!-- navigation setup -->
+  <using name="/aseiaMap" as="/navigation/aseiaMap" />
 	<namespace name="navigation">
 		<namespace name="laser">
 			<using name="../../robot/OdometryFrame" as="MapFrame"/>
@@ -154,70 +146,8 @@
 			</unit>
 		</namespace>
 
-		<if sonar="true">
-			<namespace name="sonar">
-				<using name="../../robot/OdometryFrame" as="MapFrame"/>
-				<using name="../../robot/Odometry" />
-				<using name="../../robot/RobotFrame"/>
-				<unit id="GridMapperSonar" class="mira::mapping::OccupancyGridMapperWithShape">
-					<!--The interval of the watchdog-->
-					<HeartbeatInterval>1000</HeartbeatInterval>
-					<!--The interval for trying to recover-->
-					<RecoverInterval>1000</RecoverInterval>
-					<!--The cell size of the created occupancy grid in m (default=0.05)-->
-					<CellSize>0.05</CellSize>
-					<!--The minimum certainty a range scan must have to be included into the map-->
-					<MinCertainty>5</MinCertainty>
-					<!--Scans are cropped at this maximum range-->
-					<MaxRange>2</MaxRange>
-					<!--The local cropping radius for mapping. If the specified local radius is >0, then the map is cropped to an area with the specified local radius
-					(note that it may grow beyond the crop radius around the current position due to higher map update range)-->
-					<LocalCropRadius>2</LocalCropRadius>
-					<!--The sigma for distance reliability function (if 0 sigma is not used)-->
-					<SensorReliabilitySigma>2</SensorReliabilitySigma>
-					<!--The minimum occupancy estimated for current observation-->
-					<MinEstimationOccupancyLimit>72</MinEstimationOccupancyLimit>
-					<!--The maximum occupancy estimated for current observation-->
-					<MaxEstimationOccupancyLimit>250</MaxEstimationOccupancyLimit>
-					<!--The minimum occupancy in the map-->
-					<MinOccupancyLimit>34</MinOccupancyLimit>
-					<!--The maximum occupancy in the map-->
-					<MaxOccupancyLimit>220</MaxOccupancyLimit>
-					<!--Forget rate [0,1] for the occupancy values in the cells which is applied after the map was published. default: 0 = no forgetting-->
-					<DecayRate>0.1</DecayRate>
-					<!--The name of the service that provides a rigid model for clearing the shape of the model in the map
-					(if empty, an arbitrary IRigidModelProvider service will be searched)-->
-					<ModelProvider>../../robot/Robot</ModelProvider>
-					<!--The name of the sensor channels-->
-					<Sensors>
-						<item>../../robot/sonar/USSensor00</item>
-						<item>../../robot/sonar/USSensor01</item>
-						<item>../../robot/sonar/USSensor02</item>
-						<item>../../robot/sonar/USSensor03</item>
-						<item>../../robot/sonar/USSensor04</item>
-						<item>../../robot/sonar/USSensor05</item>
-						<item>../../robot/sonar/USSensor06</item>
-						<item>../../robot/sonar/USSensor07</item>
-						<item>../../robot/sonar/USSensor08</item>
-						<item>../../robot/sonar/USSensor09</item>
-						<item>../../robot/sonar/USSensor10</item>
-						<item>../../robot/sonar/USSensor11</item>
-						<item>../../robot/sonar/USSensor12</item>
-						<item>../../robot/sonar/USSensor13</item>
-						<item>../../robot/sonar/USSensor14</item>
-						<item>../../robot/sonar/USSensor15</item>
-						<item>../../robot/sonar/USSensor16</item>
-						<item>../../robot/sonar/USSensor17</item>
-						<item>../../robot/sonar/USSensor18</item>
-						<item>../../robot/sonar/USSensor19</item>
-						<item>../../robot/sonar/USSensor20</item>
-						<item>../../robot/sonar/USSensor21</item>
-						<item>../../robot/sonar/USSensor22</item>
-						<item>../../robot/sonar/USSensor23</item>
-					</Sensors>
-				</unit>
-			</namespace>
-		</if>
+
+<!-- Map Merging -->
 		<unit id="GridMapMerger" class="mira::mapping::OccupancyGridMerger">
 			<!--The interval of the watchdog-->
 			<HeartbeatInterval>1000</HeartbeatInterval>
@@ -230,7 +160,7 @@
 			<!--The vector of required map names.-->
 			<RequiredMaps>
 			  <item>laser/Map</item>
-              <item>/aseiaMap</item>
+        <item>/aseiaMap</item>
         <!--<item>staticMap</item>-->
 			</RequiredMaps>
 			<!--The vector of optional map names.-->
@@ -241,6 +171,8 @@
 			<MaxMapAge>1000</MaxMapAge>
 		</unit>
 
+
+<!-- Planner setup -->
 		<using name="laser/Map" as="PlannerObstacleMap"/>
 		<using name="MergedMap" as="LocalMap"/>
 
