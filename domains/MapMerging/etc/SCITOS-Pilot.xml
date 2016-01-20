@@ -81,7 +81,8 @@
 			</if_exists>
 		</if_not>
 		<else>
-			<using name="../maps/static/Map" />
+			<!--<using name="../maps/static/Map" />-->
+			<using name="/staticMap" />
 			<using name="../maps/MapFrame" />
 			
 			<parameter name="Poseidon">
@@ -159,9 +160,9 @@
 			<CycleTimeTolerance>100</CycleTimeTolerance>
 			<!--The vector of required map names.-->
 			<RequiredMaps>
-			  <item>laser/Map</item>
-        <item>/aseiaMap</item>
-        <!--<item>staticMap</item>-->
+			  <!--<item>laser/Map</item>-->
+              <item>/sensorMap</item>
+              <item>/staticMap</item>
 			</RequiredMaps>
 			<!--The vector of optional map names.-->
 			<OptionalMaps>
@@ -191,7 +192,8 @@
 			<using name="../maps/SpeedMap"/>
 		</if_not>
 		<else>
-			<using name="../maps/static/Map" as="GlobalMap"/>
+			<!--<using name="../maps/static/Map" as="GlobalMap"/>-->
+			<using name="/staticMap" as="GlobalMap"/>
 			<using name="../maps/nogo/Map" as="NogoMap"/>
 			<using name="../maps/speed/Map" as="SpeedMap"/>
 		</else>

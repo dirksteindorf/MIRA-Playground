@@ -111,7 +111,7 @@ void aseiaToMiraPub::initialize()
 
 void aseiaToMiraPub::process(const Timer& timer)
 {
-    auto staticChannel = subscribe<OccupancyGrid>("/maps/static/Map");
+    auto staticChannel = subscribe<OccupancyGrid>("/staticMap");
     auto aseiaChannel  = subscribe<OccupancyGrid>("/aseiaMap");
     auto readStaticMap = staticChannel.read();
     auto readAseiaMap  = aseiaChannel.read();

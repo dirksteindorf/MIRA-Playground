@@ -120,8 +120,8 @@ namespace MapMerging {
     mira::ChannelWrite<mira::maps::OccupancyGrid> writeStaticMap = mChannel.write();
 
     writeStaticMap->timestamp = mira::Time::now();
-    writeStaticMap->frameID = resolveName("GlobalFrame"); 
-    cout << writeStaticMap->frameID << endl;
+    writeStaticMap->frameID = resolveName("MapFrame"); 
+    //cout << writeStaticMap->frameID << endl;
     writeStaticMap->value() = staticMap;
   }
 
