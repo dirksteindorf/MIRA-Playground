@@ -1,0 +1,7 @@
+<root>
+<!-- provide maps -->
+    <var mapConfigFile="${findpkg MapMerging}/etc/mapConfig.xml" />
+
+<!-- set up navigation and localization -->
+    <include file="${findpkg SCITOSConfigs}/etc/SCITOS-Pilot.xml" />
+</root>

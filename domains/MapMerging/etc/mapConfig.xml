@@ -1,0 +1,4 @@
+<root>
+    <unit id="staticMapPublisher" class="MapMerging::staticMapPublisher" />
+    <unit id="aseiaToMiraPub"     class="MapMerging::aseiaToMiraPub"     />
+</root>
