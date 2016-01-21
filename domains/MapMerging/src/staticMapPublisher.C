@@ -111,7 +111,7 @@ namespace MapMerging {
   {
     // TODO: subscribe and publish all required channels
     //subscribe<Pose2>("Pose", &UnitName::onPoseChanged);
-    mChannel = publish<mira::maps::OccupancyGrid>("staticMap");
+    mChannel = publish<mira::maps::OccupancyGrid>("/maps/static/Map");
   }
 
   void staticMapPublisher::process(const Timer& timer)
