@@ -4,4 +4,12 @@
 
 <!-- set up navigation and localization -->
     <include file="${findpkg SCITOSConfigs}/etc/SCITOS-Pilot.xml" />
+
+<!-- overwrite Map Merger -->
+    <parameter name="/navigation/GridMapMerger">
+        <RequiredMaps>
+            <item>/aseiaMap</item>
+            <item>/maps/static/Map</item>
+        </RequiredMaps>
+    </parameter>
 </root>
