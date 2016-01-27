@@ -44,6 +44,7 @@
  * @date   2015/12/17
  */
 
+#include <iostream>
 #include <fw/Unit.h>
 #include <fw/ChannelReadWrite.h>
 #include <maps/GridMap.h>
@@ -75,6 +76,9 @@ public:
 		// TODO: reflect all parameters (members and properties) that specify the persistent state of the unit
 		//r.property("Param1", mParam1, "First parameter of this unit with default value", 123.4f);
 		//r.member("Param2", mParam2, setter(&UnitName::setParam2,this), "Second parameter with setter");
+        r.member("StaticMapChannel", staticMap, "The name of the Channel where the unit can find the static map");
+        r.member("AseiaMapChannel" , aseiaMap , "The name of the Channel where the unit can find the ASEIA map");
+        r.member("PublishTo"       , publishTo, "The name of the Channel where the unit publishes its maps to");
 	}
 
 protected:
@@ -92,6 +96,9 @@ private:
 
 	//Channel<Img<>> mChannel;
     Channel<OccupancyGrid> sensorMapChannel;
+    std::string staticMap;
+    std::string aseiaMap;
+    std::string publishTo;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -106,17 +113,17 @@ void aseiaToMiraPub::initialize()
 	// TODO: subscribe and publish all required channels
 	//subscribe<Pose2>("Pose", &UnitName::onPoseChanged);
 	//mChannel = publish<Img<>>("Image");
-    sensorMapChannel = publish<OccupancyGrid>("/sensorMap");
+    sensorMapChannel = publish<OccupancyGrid>(publishTo);
 }
 
 void aseiaToMiraPub::process(const Timer& timer)
 {
-    auto staticChannel = subscribe<OccupancyGrid>("/maps/static/Map");
-    auto aseiaChannel  = subscribe<OccupancyGrid>("/aseiaMap");
-    auto readStaticMap = staticChannel.read();
-    auto readAseiaMap  = aseiaChannel.read();
+    auto staticChannel  = subscribe<OccupancyGrid>(staticMap);
+    auto aseiaChannel   = subscribe<OccupancyGrid>(aseiaMap);
+    auto readStaticMap  = staticChannel.read();
+    auto readAseiaMap   = aseiaChannel.read();
     
-    auto writeMap = sensorMapChannel.write();
+    auto writeMap       = sensorMapChannel.write();
     writeMap->timestamp = Time::now();
     writeMap->frameID   = readStaticMap->frameID;
     writeMap->value()   = readAseiaMap->value();
