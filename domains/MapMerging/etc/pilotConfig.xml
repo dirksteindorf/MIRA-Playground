@@ -8,7 +8,7 @@
 <!-- overwrite Map Merger -->
     <parameter name="/navigation/GridMapMerger">
         <RequiredMaps>
-            <item>/sensorMap</item>
+            <item>/aseiaMap</item>
             <item>/maps/static/Map</item>
         </RequiredMaps>
     </parameter>
