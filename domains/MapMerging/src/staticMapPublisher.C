@@ -75,8 +75,8 @@ namespace MapMerging {
           // TODO: reflect all parameters (members and properties) that specify the persistent state of the unit
           //r.property("Param1", mParam1, "First parameter of this unit with default value", 123.4f);
           //r.member("Param2", mParam2, setter(&UnitName::setParam2,this), "Second parameter with setter");
-          r.member("StaticMapFile"   , staticMapFile   , "", "");
-          r.member("StaticMapChannel", staticMapChannel, "", "");
+          r.member("StaticMapFile"   , staticMapFile   , "Path to the image of the static map");
+          r.member("StaticMapChannel", staticMapChannel, "Channel where the static map is published to");
         }
 
     protected:
