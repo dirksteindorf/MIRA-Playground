@@ -1,8 +1,12 @@
 <root>
     <unit id="staticMapPublisher" class="MapMerging::staticMapPublisher">
-        <TestMember>changed</TestMember>
+        <StaticMapFile>/localhome/demo/map/langeNacht/map-static.png</StaticMapFile>
+        <StaticMapChannel>/maps/static/Map</StaticMapChannel>
     </unit>
+
     <unit id="aseiaToMiraPub" class="MapMerging::aseiaToMiraPub">
-        <TestMember>changed</TestMember>
+        <StaticMapChannel>/maps/static/Map</StaticMapChannel>
+        <AseiaMapChannel>/aseiaMap</AseiaMapChannel>
+        <PublishTo>/sensorMap</PublishTo>
     </unit>
 </root>

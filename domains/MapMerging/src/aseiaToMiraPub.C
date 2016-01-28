@@ -75,7 +75,9 @@ public:
 		// TODO: reflect all parameters (members and properties) that specify the persistent state of the unit
 		//r.property("Param1", mParam1, "First parameter of this unit with default value", 123.4f);
 		//r.member("Param2", mParam2, setter(&UnitName::setParam2,this), "Second parameter with setter");
-        r.member("TestMember", testMember, "", "default");
+        r.member("StaticMapChannel", staticMapChannel, "Channel where the static map can be found");
+        r.member("AseiaMapChannel" , aseiaMapChannel , "Channel where the ASEIA map can be found");
+        r.member("PublishTo"       , publishTo       , "Channel where this Unit publishes its maps");
 	}
 
 protected:
@@ -93,7 +95,9 @@ private:
 
 	//Channel<Img<>> mChannel;
     Channel<OccupancyGrid> sensorMapChannel;
-    std::string testMember;
+    std::string staticMapChannel;
+    std::string aseiaMapChannel;
+    std::string publishTo;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -108,14 +112,13 @@ void aseiaToMiraPub::initialize()
 	// TODO: subscribe and publish all required channels
 	//subscribe<Pose2>("Pose", &UnitName::onPoseChanged);
 	//mChannel = publish<Img<>>("Image");
-    sensorMapChannel = publish<OccupancyGrid>("/sensorMap");
-    std::cout << "TestMember (aseia) = " << testMember << std::endl;
+    sensorMapChannel = publish<OccupancyGrid>(publishTo);
 }
 
 void aseiaToMiraPub::process(const Timer& timer)
 {
-    auto staticChannel = subscribe<OccupancyGrid>("/maps/static/Map");
-    auto aseiaChannel  = subscribe<OccupancyGrid>("/aseiaMap");
+    auto staticChannel = subscribe<OccupancyGrid>(staticMapChannel);
+    auto aseiaChannel  = subscribe<OccupancyGrid>(aseiaMapChannel);
     auto readStaticMap = staticChannel.read();
     auto readAseiaMap  = aseiaChannel.read();
     

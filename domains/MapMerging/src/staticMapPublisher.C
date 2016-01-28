@@ -75,7 +75,8 @@ namespace MapMerging {
           // TODO: reflect all parameters (members and properties) that specify the persistent state of the unit
           //r.property("Param1", mParam1, "First parameter of this unit with default value", 123.4f);
           //r.member("Param2", mParam2, setter(&UnitName::setParam2,this), "Second parameter with setter");
-          r.member("TestMember", testMember, "", "default");
+          r.member("StaticMapFile"   , staticMapFile   , "", "");
+          r.member("StaticMapChannel", staticMapChannel, "", "");
         }
 
     protected:
@@ -95,7 +96,8 @@ namespace MapMerging {
       mira::Point2i offset;
       float cellsize;
       mira::maps::OccupancyGrid staticMap;
-      std::string testMember;
+      std::string staticMapFile;
+      std::string staticMapChannel;
   };
 
   ///////////////////////////////////////////////////////////////////////////////
@@ -103,18 +105,18 @@ namespace MapMerging {
   staticMapPublisher::staticMapPublisher() : Unit(Duration::milliseconds(100))
   {
     // TODO: further initialization of members, etc.
-    filenameStatic = mira::Path("/localhome/demo/map/langeNacht/map-static.png");
     offset = mira::Point2i(0,0);
     cellsize = 0.05f;
-    staticMap = mira::maps::loadOccupancyGridFromFile(filenameStatic, cellsize, offset);
   }
 
   void staticMapPublisher::initialize()
   {
     // TODO: subscribe and publish all required channels
     //subscribe<Pose2>("Pose", &UnitName::onPoseChanged);
-    mChannel = publish<mira::maps::OccupancyGrid>("/maps/static/Map");
-    std::cout<< "TestMember (static) = " << testMember << std::endl;
+    mChannel = publish<mira::maps::OccupancyGrid>(staticMapChannel);
+
+    filenameStatic = mira::Path(staticMapFile);
+    staticMap      = mira::maps::loadOccupancyGridFromFile(filenameStatic, cellsize, offset);
   }
 
   void staticMapPublisher::process(const Timer& timer)
