@@ -75,6 +75,7 @@ public:
 		// TODO: reflect all parameters (members and properties) that specify the persistent state of the unit
 		//r.property("Param1", mParam1, "First parameter of this unit with default value", 123.4f);
 		//r.member("Param2", mParam2, setter(&UnitName::setParam2,this), "Second parameter with setter");
+        r.member("TestMember", testMember, "", "default");
 	}
 
 protected:
@@ -92,6 +93,7 @@ private:
 
 	//Channel<Img<>> mChannel;
     Channel<OccupancyGrid> sensorMapChannel;
+    std::string testMember;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -107,6 +109,7 @@ void aseiaToMiraPub::initialize()
 	//subscribe<Pose2>("Pose", &UnitName::onPoseChanged);
 	//mChannel = publish<Img<>>("Image");
     sensorMapChannel = publish<OccupancyGrid>("/sensorMap");
+    std::cout << "TestMember (aseia) = " << testMember << std::endl;
 }
 
 void aseiaToMiraPub::process(const Timer& timer)

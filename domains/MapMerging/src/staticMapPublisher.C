@@ -75,6 +75,7 @@ namespace MapMerging {
           // TODO: reflect all parameters (members and properties) that specify the persistent state of the unit
           //r.property("Param1", mParam1, "First parameter of this unit with default value", 123.4f);
           //r.member("Param2", mParam2, setter(&UnitName::setParam2,this), "Second parameter with setter");
+          r.member("TestMember", testMember, "", "default");
         }
 
     protected:
@@ -94,6 +95,7 @@ namespace MapMerging {
       mira::Point2i offset;
       float cellsize;
       mira::maps::OccupancyGrid staticMap;
+      std::string testMember;
   };
 
   ///////////////////////////////////////////////////////////////////////////////
@@ -112,6 +114,7 @@ namespace MapMerging {
     // TODO: subscribe and publish all required channels
     //subscribe<Pose2>("Pose", &UnitName::onPoseChanged);
     mChannel = publish<mira::maps::OccupancyGrid>("/maps/static/Map");
+    std::cout<< "TestMember (static) = " << testMember << std::endl;
   }
 
   void staticMapPublisher::process(const Timer& timer)

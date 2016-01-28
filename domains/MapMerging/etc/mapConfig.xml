@@ -1,4 +1,8 @@
 <root>
-    <unit id="staticMapPublisher" class="MapMerging::staticMapPublisher" />
-    <unit id="aseiaToMiraPub"     class="MapMerging::aseiaToMiraPub"     />
+    <unit id="staticMapPublisher" class="MapMerging::staticMapPublisher">
+        <TestMember>changed</TestMember>
+    </unit>
+    <unit id="aseiaToMiraPub" class="MapMerging::aseiaToMiraPub">
+        <TestMember>changed</TestMember>
+    </unit>
 </root>
