@@ -54,73 +54,73 @@ using namespace std;
 
 namespace MapMerging { 
 
-  ///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
-  /**
-   * publishes a static map to merge it later on with a map aquired from an external sensor
-   */
-  class staticMapPublisher : public Unit
-  {
-    MIRA_OBJECT(staticMapPublisher)
+/**
+ * publishes a static map to merge it later on with a map aquired from an external sensor
+ */
+class staticMapPublisher : public Unit
+{
+MIRA_OBJECT(staticMapPublisher)
 
-    public:
+public:
 
-      staticMapPublisher();
+    staticMapPublisher();
 
-      template<typename Reflector>
-        void reflect(Reflector& r)
-        {
-          Unit::reflect(r);
+    template<typename Reflector>
+    void reflect(Reflector& r)
+    {
+        Unit::reflect(r);
 
-          // TODO: reflect all parameters (members and properties) that specify the persistent state of the unit
-          //r.property("Param1", mParam1, "First parameter of this unit with default value", 123.4f);
-          //r.member("Param2", mParam2, setter(&UnitName::setParam2,this), "Second parameter with setter");
-          r.member("StaticMapFile"   , staticMapFile   , "Path to the image of the static map");
-          r.member("StaticMapChannel", staticMapChannel, "Channel where the static map is published to");
-        }
+        // TODO: reflect all parameters (members and properties) that specify the persistent state of the unit
+        //r.property("Param1", mParam1, "First parameter of this unit with default value", 123.4f);
+        //r.member("Param2", mParam2, setter(&UnitName::setParam2,this), "Second parameter with setter");
+        r.member("StaticMapFile"   , staticMapFile   , "Path to the image of the static map");
+        r.member("StaticMapChannel", staticMapChannel, "Channel where the static map is published to");
+    }
 
-    protected:
+protected:
 
-      virtual void initialize();
+    virtual void initialize();
 
-      virtual void process(const Timer& timer);
+    virtual void process(const Timer& timer);
 
-    private:
+private:
 
-      // void onPoseChanged(ChannelRead<Pose2> pose);
+    // void onPoseChanged(ChannelRead<Pose2> pose);
 
-    private:
+private:
 
-      Channel<mira::maps::OccupancyGrid> mChannel;
-      mira::Path filenameStatic;
-      mira::Point2i offset;
-      float cellsize;
-      mira::maps::OccupancyGrid staticMap;
-      std::string staticMapFile;
-      std::string staticMapChannel;
-  };
+    Channel<mira::maps::OccupancyGrid> mChannel;
+    mira::Path filenameStatic;
+    mira::Point2i offset;
+    float cellsize;
+    mira::maps::OccupancyGrid staticMap;
+    std::string staticMapFile;
+    std::string staticMapChannel;
+};
 
-  ///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
-  staticMapPublisher::staticMapPublisher() : Unit(Duration::milliseconds(100))
-  {
+staticMapPublisher::staticMapPublisher() : Unit(Duration::milliseconds(100))
+{
     // TODO: further initialization of members, etc.
     offset = mira::Point2i(0,0);
     cellsize = 0.05f;
-  }
+}
 
-  void staticMapPublisher::initialize()
-  {
+void staticMapPublisher::initialize()
+{
     // TODO: subscribe and publish all required channels
     //subscribe<Pose2>("Pose", &UnitName::onPoseChanged);
     mChannel = publish<mira::maps::OccupancyGrid>(staticMapChannel);
 
     filenameStatic = mira::Path(staticMapFile);
     staticMap      = mira::maps::loadOccupancyGridFromFile(filenameStatic, cellsize, offset);
-  }
+}
 
-  void staticMapPublisher::process(const Timer& timer)
-  {
+void staticMapPublisher::process(const Timer& timer)
+{
     // TODO: this method is called periodically with the specified cycle time, so you can perform your computation here.
     mira::ChannelWrite<mira::maps::OccupancyGrid> writeStaticMap = mChannel.write();
 
@@ -128,9 +128,9 @@ namespace MapMerging {
     writeStaticMap->frameID = resolveName("MapFrame"); 
     //cout << writeStaticMap->frameID << endl;
     writeStaticMap->value() = staticMap;
-  }
+}
 
-  ///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
 }
 

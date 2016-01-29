@@ -65,35 +65,35 @@ MIRA_OBJECT(aseiaToMiraPub)
 
 public:
 
-	aseiaToMiraPub();
+    aseiaToMiraPub();
 
-	template<typename Reflector>
-	void reflect(Reflector& r)
-	{
-		Unit::reflect(r);
+    template<typename Reflector>
+    void reflect(Reflector& r)
+    {
+        Unit::reflect(r);
 
-		// TODO: reflect all parameters (members and properties) that specify the persistent state of the unit
-		//r.property("Param1", mParam1, "First parameter of this unit with default value", 123.4f);
-		//r.member("Param2", mParam2, setter(&UnitName::setParam2,this), "Second parameter with setter");
+        // TODO: reflect all parameters (members and properties) that specify the persistent state of the unit
+        //r.property("Param1", mParam1, "First parameter of this unit with default value", 123.4f);
+        //r.member("Param2", mParam2, setter(&UnitName::setParam2,this), "Second parameter with setter");
         r.member("StaticMapChannel", staticMapChannel, "Channel where the static map can be found");
         r.member("AseiaMapChannel" , aseiaMapChannel , "Channel where the ASEIA map can be found");
         r.member("PublishTo"       , publishTo       , "Channel where this Unit publishes its maps");
-	}
+    }
 
 protected:
 
-	virtual void initialize();
+    virtual void initialize();
     virtual void process(const Timer& timer);
 
 private:
 
-	// void onPoseChanged(ChannelRead<Pose2> pose);
+    // void onPoseChanged(ChannelRead<Pose2> pose);
     void onNewStaticMap(ChannelRead<OccupancyGrid> map);
     void onNewAseiaMap(ChannelRead<OccupancyGrid> map);
 
 private:
 
-	//Channel<Img<>> mChannel;
+    //Channel<Img<>> mChannel;
     Channel<OccupancyGrid> sensorMapChannel;
     std::string staticMapChannel;
     std::string aseiaMapChannel;
@@ -104,14 +104,14 @@ private:
 
 aseiaToMiraPub::aseiaToMiraPub() : Unit(Duration::milliseconds(100))
 {
-	// TODO: further initialization of members, etc.
+    // TODO: further initialization of members, etc.
 }
 
 void aseiaToMiraPub::initialize()
 {
-	// TODO: subscribe and publish all required channels
-	//subscribe<Pose2>("Pose", &UnitName::onPoseChanged);
-	//mChannel = publish<Img<>>("Image");
+    // TODO: subscribe and publish all required channels
+    //subscribe<Pose2>("Pose", &UnitName::onPoseChanged);
+    //mChannel = publish<Img<>>("Image");
     sensorMapChannel = publish<OccupancyGrid>(publishTo);
 }
 
@@ -121,7 +121,7 @@ void aseiaToMiraPub::process(const Timer& timer)
     auto aseiaChannel  = subscribe<OccupancyGrid>(aseiaMapChannel);
     auto readStaticMap = staticChannel.read();
     auto readAseiaMap  = aseiaChannel.read();
-    
+
     auto writeMap = sensorMapChannel.write();
     writeMap->timestamp = Time::now();
     writeMap->frameID   = readStaticMap->frameID;
