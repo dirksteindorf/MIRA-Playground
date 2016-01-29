@@ -72,9 +72,6 @@ public:
     {
         Unit::reflect(r);
 
-        // TODO: reflect all parameters (members and properties) that specify the persistent state of the unit
-        //r.property("Param1", mParam1, "First parameter of this unit with default value", 123.4f);
-        //r.member("Param2", mParam2, setter(&UnitName::setParam2,this), "Second parameter with setter");
         r.member("StaticMapFile"   , staticMapFile   , "Path to the image of the static map");
         r.member("StaticMapChannel", staticMapChannel, "Channel where the static map is published to");
     }
@@ -84,10 +81,6 @@ protected:
     virtual void initialize();
 
     virtual void process(const Timer& timer);
-
-private:
-
-    // void onPoseChanged(ChannelRead<Pose2> pose);
 
 private:
 
@@ -104,15 +97,12 @@ private:
 
 staticMapPublisher::staticMapPublisher() : Unit(Duration::milliseconds(100))
 {
-    // TODO: further initialization of members, etc.
     offset = mira::Point2i(0,0);
     cellsize = 0.05f;
 }
 
 void staticMapPublisher::initialize()
 {
-    // TODO: subscribe and publish all required channels
-    //subscribe<Pose2>("Pose", &UnitName::onPoseChanged);
     mChannel = publish<mira::maps::OccupancyGrid>(staticMapChannel);
 
     filenameStatic = mira::Path(staticMapFile);
@@ -121,12 +111,10 @@ void staticMapPublisher::initialize()
 
 void staticMapPublisher::process(const Timer& timer)
 {
-    // TODO: this method is called periodically with the specified cycle time, so you can perform your computation here.
     mira::ChannelWrite<mira::maps::OccupancyGrid> writeStaticMap = mChannel.write();
 
     writeStaticMap->timestamp = mira::Time::now();
     writeStaticMap->frameID = resolveName("MapFrame"); 
-    //cout << writeStaticMap->frameID << endl;
     writeStaticMap->value() = staticMap;
 }
 
