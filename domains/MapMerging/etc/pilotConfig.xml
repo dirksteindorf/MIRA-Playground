@@ -8,8 +8,11 @@
 <!-- overwrite Map Merger -->
     <parameter name="/navigation/GridMapMerger">
         <RequiredMaps>
-            <item>/sensorMap</item>
             <item>/maps/static/Map</item>
         </RequiredMaps>
+
+        <OptionalMaps>
+            <item>/sensorMap</item>
+        </OptionalMaps>
     </parameter>
 </root>
