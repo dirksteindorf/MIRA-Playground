@@ -97,7 +97,7 @@ private:
 
 staticMapPublisher::staticMapPublisher() : Unit(Duration::milliseconds(100))
 {
-    offset = mira::Point2i(239, 706);
+    offset = mira::Point2i(0, 524);
     cellsize = 0.05f;
 }
 

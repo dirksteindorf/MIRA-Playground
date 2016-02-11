@@ -1,6 +1,6 @@
 <root>
     <unit id="staticMapPublisher" class="MapMerging::staticMapPublisher">
-        <StaticMapFile>${HOME}/MIRA/MIRA-Playground/domains/MapMerging/etc/map-static.png</StaticMapFile>
+        <StaticMapFile>${HOME}/MIRA/MIRA-Playground/domains/MapMerging/etc/map-static3.png</StaticMapFile>
         <StaticMapChannel>/maps/static/Map</StaticMapChannel>
     </unit>
 
