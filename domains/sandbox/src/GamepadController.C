@@ -85,8 +85,8 @@ public:
     {
         Unit::reflect(r);
 
-        r.property("maxSpeed", maxSpeed, "Maximum speed of the robot in meters per second", 0.5f);
-        r.property("stopDistance", stopDistance, "distance to an obstacle at which the robot stops driving", 0.4f);
+        r.property("maxSpeed", maxSpeed, "Maximum speed of the robot in meters per second", 1.0f);
+        r.property("stopDistance", stopDistance, "distance to an obstacle at which the robot stops driving", 0.0f);
     }
 
 protected:
@@ -115,7 +115,7 @@ private:
 //-----------------------------------------------------------------------------
 GamepadController::GamepadController() : Unit(Duration::milliseconds(100))
 {
-    gamepad = Gamepad(1);
+    gamepad = Gamepad(0);
     isDrivingAllowed= true;
     transformSpeed = 0.0f;
     rotationSpeed = 0.0f;
@@ -143,6 +143,7 @@ void GamepadController::process(const Timer& timer)
         }
         if(gamepadEvent.isButtonPressed(BUTTON_START))
         {
+            std::cout << "pressed start" << std::endl;
             isDrivingAllowed = !isDrivingAllowed;
             transformSpeed = 0.0f;
             rotationSpeed = 0.0f;
@@ -159,11 +160,13 @@ void GamepadController::process(const Timer& timer)
         // DPad 
         if(gamepadEvent.isDPadUp())
         {
+            std::cout << "pressed up" << std::endl;
             transformSpeed += SPEED_STEP;
             rotationSpeed = 0.0f;
         }
         if(gamepadEvent.isDPadDown())
         {
+            std::cout << "pressed down" << std::endl;
             transformSpeed -= SPEED_STEP;
             rotationSpeed = 0.0f;
         }

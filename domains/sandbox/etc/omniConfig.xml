@@ -5,10 +5,10 @@
 	</communication>
     
     <!-- enable control via gamepad -->
-    <unit id="Gamepad" class="tutorials::GamepadController" />
+    <unit id="Gamepad" class="sandbox::GamepadController" />
     
     <!-- include own RPC Calls (not really necessary but nice to play around with) -->
-    <unit id="RPC" class="tutorials::RPCTests" />
+    <unit id="RPC" class="sandbox::RPCTests" />
 
     <!--<unit id="kukaController" class="langeNacht::kukaRemoteController" />-->
 
