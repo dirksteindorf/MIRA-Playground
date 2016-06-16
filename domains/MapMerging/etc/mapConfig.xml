@@ -1,12 +1,12 @@
 <root>
     <unit id="staticMapPublisher" class="MapMerging::staticMapPublisher">
-        <StaticMapFile>${HOME}/MIRA/MIRA-Playground/domains/MapMerging/etc/map-static3.png</StaticMapFile>
+        <StaticMapFile>${HOME}/MIRA/MIRA-Playground/domains/MapMerging/etc/map-static4.png</StaticMapFile>
         <StaticMapChannel>/maps/static/Map</StaticMapChannel>
     </unit>
 
-    <unit id="aseiaToMiraPub" class="MapMerging::aseiaToMiraPub">
+    <!--<unit id="aseiaToMiraPub" class="MapMerging::aseiaToMiraPub">
         <StaticMapChannel>/maps/static/Map</StaticMapChannel>
         <AseiaMapChannel>/aseiaMap</AseiaMapChannel>
         <PublishTo>/sensorMap</PublishTo>
-    </unit>
+    </unit>-->
 </root>

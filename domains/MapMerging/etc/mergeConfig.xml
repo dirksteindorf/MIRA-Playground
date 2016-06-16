@@ -33,7 +33,7 @@
 
         <!--The vector of optional map names.-->
         <OptionalMaps>
-            <item>sensorMap</item>
+            <!--<item>sensorMap</item>-->
         </OptionalMaps>
 
         <!--Maximum age of required and optional maps in ms-->

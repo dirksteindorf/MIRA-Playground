@@ -95,9 +95,9 @@ private:
 
 ///////////////////////////////////////////////////////////////////////////////
 
-staticMapPublisher::staticMapPublisher() : Unit(Duration::milliseconds(100))
+staticMapPublisher::staticMapPublisher() : Unit(Duration::milliseconds(1500))
 {
-    offset = mira::Point2i(0, 524);
+    offset = mira::Point2i(0, 565);
     cellsize = 0.05f;
 }
 
